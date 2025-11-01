@@ -1,0 +1,1 @@
+this is the a.txt reading from your Promise
