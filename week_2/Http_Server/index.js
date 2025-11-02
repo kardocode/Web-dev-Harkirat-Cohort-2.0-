@@ -5,7 +5,7 @@ const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 fs.readFile("a.txt","utf-8",(err,data)=>{
-    
+
 })
 
 app.get('/route-hander',function(req,res){

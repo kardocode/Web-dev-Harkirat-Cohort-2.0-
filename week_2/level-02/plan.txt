@@ -1,0 +1,14 @@
+// Hospital managment 
+
+you need to create 4 rotes
+
+get : user can check how many kidneys they have and their health
+
+post: user can add a new kidney
+
+put : user can replace a kidney
+
+delete : user can remove a kidney
+
+
+database will be in memory
