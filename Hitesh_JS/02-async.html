@@ -1,0 +1,44 @@
+// 2nd projects using async class :
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Open te knoor</h1>
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+</body>
+<script>
+    const sayDate  = () => {
+        console.log("Open the knoor",Date.now());
+    }   
+
+    // start button starts the interval
+
+    document.querySelector('#start').addEventListener('click',()=>{
+            intervalId = setTimeout(sayDate,2000);
+            console.log("interval Started");
+    });
+
+    // stop button clears the interval
+    document.querySelector('#stop').addEventListener('click',() =>{
+        clearInterval(sayDate);
+        intervalId = null;
+        console.log("Interval stopped! ")
+    });
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+// generate a random colour
+

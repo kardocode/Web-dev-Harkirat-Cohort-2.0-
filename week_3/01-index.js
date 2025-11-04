@@ -1,9 +1,16 @@
-// Hospital Managment
+// Hospital Managment using Middlewares and zod library :
 
 const express = require("express");
 const port = 3001;
 const app =express();
 app.use(express.json());
+
+let numberofRequests = 0;
+function calculateRequests(req,res,next){
+    numberofRequests++;
+    console.log(numberofRequests);
+    next();
+}
 
 
 app.get("/",(req,res)=>{
@@ -39,7 +46,7 @@ function kidneymiddleware(req,res,next){
 }
 
 app.get("/health-checkup",usermiddleware,kidneymiddleware,(req,res)=>{
-    res.send("Your heat is healthy")
+    res.send("Your hearth is healthy")
 });
 
 app.get("/kidney-checkup",usermiddleware,kidneymiddleware,(req,res)=>{
@@ -47,13 +54,16 @@ app.get("/kidney-checkup",usermiddleware,kidneymiddleware,(req,res)=>{
 });
 
 app.get("/health-checkup",usermiddleware,kidneymiddleware,(req,res)=>{
-    res.send("Your heat is healthy")
+    res.send("Your  is healthy")
 });
 
 
 
 app.post("/",(req,res)=>{
-    
+    console.log(req.body);
+    req.headers;
+    req.query;
+
 });
 
 app.put("/",(req,res)=>{
@@ -67,9 +77,4 @@ app.delete("/",(req,res)=>{
 app.listen(port,()=>{
     console.log(`The port is: ${port}`);
 })
-
-
-
-
-
 
