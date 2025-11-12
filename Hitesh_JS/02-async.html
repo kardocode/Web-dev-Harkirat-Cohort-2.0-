@@ -12,6 +12,7 @@
     <button id="stop">Stop</button>
 </body>
 <script>
+    let intervalId ;
     const sayDate  = () => {
         console.log("Open the knoor",Date.now());
     }   
@@ -19,25 +20,21 @@
     // start button starts the interval
 
     document.querySelector('#start').addEventListener('click',()=>{
+        if (! setInterval){
             intervalId = setTimeout(sayDate,2000);
-            console.log("interval Started");
+                console.log("interval Started");
+            }
+    
     });
 
     // stop button clears the interval
     document.querySelector('#stop').addEventListener('click',() =>{
-        clearInterval(sayDate);
+        clearInterval(intervalId);
         intervalId = null;
         console.log("Interval stopped! ")
     });
 </script>
 </html>
-
-
-
-
-
-
-
 
 
 // generate a random colour
