@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gauransh</title>
+</head>
+<body>
+    <ul class="mylist">
+        <li>Coffee</li>
+        <li>Tea</li>
+        <li>Milk</li>
+    </ul>
+    <p>Click "replace" to replace the second item in the list</p>
+    <button onclick="changeStyle()">Replace</button>
+</body>
+<script>
+    function changeStyle(){
+        const element = document.querySelector(".mylist").children[1];
+        // create a new text node :
+        const newNode = document.createTextNode("Juice");
+
+        // Replace the text node:
+        element.replaceChild(newNode,element.childNodes[0]);
+    }
+</script>
+</html>
