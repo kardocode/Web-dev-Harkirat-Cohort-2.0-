@@ -1,0 +1,11 @@
+{
+  "name": "mycontacs-backend-api",
+  "version": "1.0.0",
+  "description": "This is express project for learning Api",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "kardocode",
+  "license": "ISC"
+}
