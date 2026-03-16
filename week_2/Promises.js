@@ -1,3 +1,5 @@
+// A Promise in JavaScript is an object that represents the eventual result of an asynchronous operation — either a success (resolved) or a failure (rejected).
+
 // Promiese are the things which give user a promise that they may or may not give output immediately
 
 

@@ -1,0 +1,5 @@
+/node_modules
+.env
+
+mongodb+srv://<freakyassnixxa_db_user>:<tj0PH60MCLKxManA>@cluster0.ihnqhup.mongodb.net/
+mongodb+srv://jeromme_kardocode:Gaurmongo123-@cluster0.ihnqhup.mongodb.net/

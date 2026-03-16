@@ -1,14 +1,21 @@
 
-const submit  = document.querySelector('.submit');
+// const submit  = document.querySelector('.submit');
 
 
-const result = document.getElementById("final-Sum");
+// const result = document.getElementById("final-Sum");
 
-submit.addEventListener('click',()=>{
-    const one = parseInt(document.querySelector('.one').value);
-    const two = parseInt(document.querySelector('.two').value);
+// submit.addEventListener('click',()=>{
+//     const one = parseInt(document.querySelector('.one').value);
+//     const two = parseInt(document.querySelector('.two').value);
 
-    result.textContent = one+two;
+//     result.textContent = one+two;
+// })
+
+// console.log(submit);
+
+setInterval(()=>{
+    const date = new Date();
+    console.log(`${date.getHours()} : ${date.getMinutes()} : ${date.getSeconds()}`);
 })
 
-console.log(submit);
+setTimeout(setInterval,1000);
