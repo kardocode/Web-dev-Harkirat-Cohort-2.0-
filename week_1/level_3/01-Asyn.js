@@ -16,3 +16,15 @@ setTimeout(findSumTill100, 1000)
 console.log("hello world");
 
 
+// you cannot use promise when there are multiple resolve 
+// because promise automartically do resolve for one time even you write for more times
+let p = new Promise((resolve)=>{
+    resolve("1");
+    resolve("2");
+    resolve("3");
+})
+
+p.then((data)=>{
+    console.log("promise resolved")
+    console.log(data)
+});

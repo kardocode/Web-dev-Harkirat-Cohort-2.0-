@@ -65,6 +65,9 @@ setTimeoutPromise(2000)
     .catch((err)=>{
         console.log(err)
     })
+    .finally(function(){
+        console.log("finally after either .then or .catch ran")
+    })
 // create a promisified version of fs.writeFile
 function fswriteFilePromise(filename,data){
     return new Promise((res,rej)=>{
@@ -76,7 +79,7 @@ function fswriteFilePromise(filename,data){
             }
         })
     })
-}
+} 
 const a = "My name is Ansh";
 fswriteFilePromise("b.txt",a)
     .then((data)=>{
