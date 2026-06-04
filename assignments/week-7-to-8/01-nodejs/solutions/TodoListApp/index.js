@@ -41,7 +41,7 @@ const port = 3000;
 app.use(bodyParser.json());
 let todos = []; 
 
-app.get('/',(req,res)=>{
+app.get('/info',(req,res)=>{
     res.json({
         "GET http://localhost:3000/todos": "Retrieve all todo items",
         "GET http://localhost:3000/todos/:id" : "Retrieve a specific todo item by ID ",
@@ -94,6 +94,10 @@ app.delete("/todos/:id",(req,res)=>{
         todos.splice(isFind,1);
         res.status(200).send("OK"); 
     }
+})
+
+app.get('/',(req,res)=>{
+  res.sendFile("D:/webdev/assignments/week-7-to-8/01-nodejs/solutions/TodoListApp/index.html")
 })
 
 app.listen(port,()=>{

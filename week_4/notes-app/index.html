@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+            
+            async function addTodo(){
+                await axios.post("http://localhost:3000/notes",{
+                    note : document.getElementById("userNote").value
+                });
+
+                //show the todo in the frontend
+                const newNode = document.createElement("div")
+                newNode.innerHTML = document.getElementById('userNote').value;
+                newNode.setAttribute("style","border:2px solid black; padding: 10px;")
+                document.getElementById('notes').appendChild(newNode);
+                
+                //make the input box empty again
+                document.getElementById('userNote').value ="";
+            }
+
+            async function get_todos(){
+                const response = await axios.get("http://localhost:3000/notes");
+                const notes = response.data.notes;
+                document.getElementById('notes').innerHTML = "";
+                for(let i =0;i<notes.length;i++){
+                    const newNote = document.createElement("div");
+                    newNote.innerHTML = notes[i];
+                    newNote.setAttribute(
+                        "style",
+                        "border:2px solid black; padding: 10px; background-color: #f0f0f0;")
+                    document.getElementById('notes').appendChild(newNote);
+                }
+            }
+
+        </script>
+    </head>
+    <body>
+        <div style="font-size:30px; display:flex; gap:10px; background-color: #f0f0f0;
+                justify-content:center;
+                align-items:center;
+                padding:10px; padding-bottom:20px">NOTES APP</div>
+        <div style="display : flex;background-color: #f0f0f0; justify-content: space-between; padding : 0px 100px;">
+            <div id="notes">
+                Loading ...
+            </div>
+            <div>
+                <input id="userNote" type="text" placeholder="Enter new notes"/>
+                <button onclick="addTodo()">Create New Note</button>
+                <button onclick="get_todos()">Get All Note</button>
+            </div>
+        </div>
+    </body>
+</html>
