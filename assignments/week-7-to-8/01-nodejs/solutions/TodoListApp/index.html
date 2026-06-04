@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <div style="font-size:50px;background-color: #f0f0f0; color: #333333; padding: 15px;display: flex; justify-content: center; align-items: center;">TODO   LIST</div>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">
+            
+            async function get(){
+                const response = await axios.get("http://localhost:3000/todos");
+                document.getElementById("result").innerHTML = JSON.stringify(response.data,null,2);
+            }
+
+            async function createTodo(){
+                const title = document.getElementById('title').value;
+                const description = document.getElementById('description').value;
+                const response = await axios.post("http://localhost:3000/todos",{
+                    title,
+                    description
+                });
+                document.getElementById("result").innerHTML = JSON.stringify(response.data,null,2);
+            }
+        </script>
+
+    
+    </head>
+    <body>
+        <div id="parent-div" style="display:flex; gap:10px; background-color: #f0f0f0;
+                justify-content:center;
+                align-items:center;
+                padding:10px; padding-bottom:20px">
+                <button id="post" onclick="createTodo()">Create Todo</button>
+            <input id="title" type="text" placeholder="title">
+            <input id="description" type="text" placeholder="description">
+            <input id="id" type="number" placeholder="Enter Id"/>
+            <button id="get" onclick="get()">See all todos</button>
+            
+        </div>
+        <div style="display:flex;background-color: #f0f0f0;
+                justify-content:center;
+                align-items:center;
+                padding:10px; padding-bottom:50px">
+            <button id="submit">Submit</button>
+        </div>    
+        <pre id="result"></pre>
+</body>
+</html>
