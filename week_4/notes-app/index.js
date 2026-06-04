@@ -1,7 +1,9 @@
 const express = require('express');
 const app = express();
+const jwt = require("jsonwebtoken");
+const bodyParser = require("body-parser")
 const port = 3000;
-app.use(express.json());
+app.use(bodyParser.json());
 
 let notes = [];
 const users = [
@@ -11,13 +13,13 @@ const users = [
 app.post("/signup",function(req,res){
     const username = req.body.username;
     const password = req.body.password;
-    constuserExists = users.find(user => user.username === username);
+    const userExists = users.find(user => user.username === username);
     if(userExists){
-        res.status(200).send("OK").json({
+        res.status(200).json({
             message : "User with this username already exists"
         })
     }else{
-        user.push({username:username,password:password})
+        users.push({username,password})
     }
     res.json({
         message:"You have signed up"
@@ -25,25 +27,64 @@ app.post("/signup",function(req,res){
 })
 
 app.post("/signin",(req,res)=>{
-    const username = req.body.uername;
+    const username = req.body.username;
     const password = req.body.password;
     
-    const userExist = users.find(user => user.name === username && user.password === password);
+    const userExist = users.find(user => user.username === username && user.password === password);
+
     if(!userExist){
         res.status(404).json({message:"Incorrect Credential"})
-    }else{}
+    }else{
+        const token = jwt.sign({
+            username : username
+        },"gauransh123");
+
+        res.json({
+            token: token
+        })
+    }
 });
 
-//POST - create a note   
+//POST - create a note   -- Authenticated Endpoint
 app.post('/notes',(req,res)=>{
-    const note = req.body.note;
-    notes.push(note);
+    // check if they have sent the right headers. extract who user is from the header.
+    const token = req.headers.token;
+    if(!token){
+        res.status(403).send({message:"You are not logged in"});
+        return;
+    }
+    const decode = jwt.verify(token,"gauransh123");
+    const username = decode.username;
+    if(!username){
+        return res.status(403).json({
+            message:"malformed token"
+        })
+    }
+
+    const note = req.body.notes;
+    notes.push({note, username});
     res.json({"message":"DONE!!"});
 })
 
 //GET - get all my notes
 app.get('/notes',(req,res)=>{
-    res.json({notes})
+    const token = req.headers.token;
+    if(!token){
+        res.status(403).send({message:"You are not logged in"});
+        return;
+    }
+    const decoded = jwt.verify(token,"gauransh123");
+    const username = decoded.username;
+    if(!username){
+        return res.status(404).json({
+            message : "malformed token"
+        })
+    }
+    const userNotes = notes.filter(note=>note.username === username);
+
+    res.json({
+        userNotes
+    })
 })
 
 app.get("/",(req,res)=>{
