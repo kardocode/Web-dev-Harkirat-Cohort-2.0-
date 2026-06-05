@@ -1,0 +1,25 @@
+<html>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
+    <head>
+        <script>
+            async function signin(){
+                const username = document.getElementById('name').value;
+                const password = document.getElementById('pass').value;
+                const response = await axios.post("http://localhost:3000/signin",{
+                    username,
+                    password
+                })
+                const tokens = response.data.token;
+                localStorage.setItem("tokens",tokens);
+
+                window.location = '/'
+                
+            }
+        </script>
+    </head>
+    <body>
+       <input id="name" type="text" placeholder="Username" /> 
+       <input id="pass" type="text" placeholder="Password" />
+       <button onclick="signin()">Sign-In</button>
+    </body>
+</html>
