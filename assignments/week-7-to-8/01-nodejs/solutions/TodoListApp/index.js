@@ -38,68 +38,44 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const port = 3000;
+const jwt = require('jsonwebtoken');
+const { authmiddleware } = require('./middleware');
 app.use(bodyParser.json());
 let todos = []; 
-
-app.get('/info',(req,res)=>{
-    res.json({
-        "GET http://localhost:3000/todos": "Retrieve all todo items",
-        "GET http://localhost:3000/todos/:id" : "Retrieve a specific todo item by ID ",
-        "POST http://localhost:3000/todos" : "Creates a new todo item.",
-        "PUT http://localhost:3000/todos/123" : "Update an existing todo item by ID",
-        "DELETE http://localhost:3000/todos/:id" : "Delete a todo item by ID"
-    })
-})
-
-app.get("/todos",(req,res)=>{
-    res.json(todos)
-});
-
-app.get('/todos/:id', (req, res) => {
-    const todo = todos.find(t => t.id === parseInt(req.params.id));
-    if (!todo) {
-      res.status(404).send();
-    } else {
-      res.json(todo);
-    }
-  });
-
-app.post("/todos",(req,res)=>{
-    const newTodo ={
-        id: Math.floor(Math.random() *1000),
-        title : req.body.title,
-        description : req.body.description
-    };
-    todos.push(newTodo);
-    res.status(201).json(newTodo);
-})
-
-app.put("/todos/:id",(req,res)=>{
-    const tid = parseInt(req.params.id);
-    const Isfind = todos.findIndex(t => t.id === tid);
-    if(Isfind === -1){
-        res.status(404).json({"message" : "Todo Not found"});
-    }else{
-        todos[Isfind].title = req.body.title;
-        todos[Isfind].description = req.body.description;
-        res.status(200).json(todos[Isfind]);
-    }
-})
-
-app.delete("/todos/:id",(req,res)=>{
-    const isFind = todos.findIndex(t => t.id === parseInt(req.params.id));
-    if(isFind == -1){
-        res.status(404).send();
-    }else{
-        todos.splice(isFind,1);
-        res.status(200).send("OK"); 
-    }
-})
-
+let user = [];
 app.get('/',(req,res)=>{
-  res.sendFile("D:/webdev/assignments/week-7-to-8/01-nodejs/solutions/TodoListApp/index.html")
+  res.sendFile('D:/webdev/assignments/week-7-to-8/01-nodejs/solutions/TodoListApp/index.html');
 })
 
-app.listen(port,()=>{
-    console.log(`${port} -> PORT`)
+app.post('/signup',authmiddleware,(req,res)=>{
+  const username = req.body.username;
+  const password = req.body.password;
+  const userExist = user.find(user => user.username == username);
+  if(userExist){
+    res.status(200).json({message : "User Exist"})
+  }else{
+    user.push({username,passwod});
+  }
+  res.json({message:"YOU have signed up"})
 })
+
+app.post('/signin',(req,res)=>{
+  const username = req.body.username;
+  const password = req.body.password;
+  const userExist = user.find(user=> user.username == username && user.password == password);
+  if(!userExist){
+    res.status(403).json({message: "Incorect Credential"})
+  }else{
+    const token = jwt.sign({
+      username : username
+    },gaur123);
+
+    res.json({
+      token:token
+    })
+  }
+})
+
+app.listen(port,(req,res)=>{
+  console.log(`${PORT} -> P O R T`)
+});
