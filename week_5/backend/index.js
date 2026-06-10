@@ -84,21 +84,22 @@ app.post('/organization',autMiddleware,(req,res)=>{
     })
 })
 
+// Only admin can add member to Org
 app.post('/add-member-to-organization',autMiddleware,(req,res)=>{
     const userId = req.userid;
-    const organisationId = req.body.organisationId;
+    const organisationId = req.body.organisationId; 
     const memberUsername = req.body.memberUsername;
     
-    const organisationIdExist = ORGANISATION.find(org => org.id === organisationId);
+    const organisation = ORGANISATION.find(org => org.id === organisationId);
      
-    if(!organisationIdExist || organisation.admin !== userId){
+    if(!organisation || organisation.admin !== userId){
         return res.status(411).json({message:"Either this org does not exist or you are not the admin of this org"});
     }
 
-    const memberUser = USER.find(u => u.username == memberUsername)
+    const memberUser = USER.find(u => u.username === memberUsername)
 
     if(!memberUser){
-        return res.status(412).json({member:"No user with this name exist in our db"})
+        return res.status(412).json({member:"User with this name does not exist in our db"})
     }
 
     organisation.members.push(memberUser.id);
@@ -117,11 +118,34 @@ app.post('/issue',(req,res)=>{
 
 })
 
-app.post('/boards',(req,res)=>{
+//Get endpoints
+app.get('/organisation',(req,res)=>{
+    const userId = req.userId;    
+    const organisationId = parseInt(req.query.organisationId);
+
+    const organisation = organisation.find(org => org.id === organisationId)
+    if(!organisation || userId !== organisation.admin){
+        return res.status(413).json({message:"Either this is not a org or you are not the admin of this org"})
+    }
+    res.json({
+        organisation:{
+            ...organisation,
+            members: organisation.member.map(memberId =>{
+                const user = USER.find(user => user.id === memberId);
+                return {
+                    id: user.id,
+                    username : username
+                }
+            })
+        }
+    })
+
+})
+app.get('/boards',(req,res)=>{
 
 })
 
-app.post('/issues',(req,res)=>{
+app.get('/issues',(req,res)=>{
 
 })
 
