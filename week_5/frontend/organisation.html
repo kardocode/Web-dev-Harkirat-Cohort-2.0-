@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+            async function orgCreate(){
+                const title = document.getElementById('title').value;
+                const description = document.getElementById('description').value;
+                const response = await axios.post("http://localhost:3000/organisation",{
+                    title,description
+                },{
+                    headers:{
+                        token:localStorage.getItem("token")
+                    }
+                })
+                const organisationId = response.data.id;
+                localStorage.setItem("organisationId",organisationId);
+            }
+            function addMember(){
+                window.location='/addMember'
+            }
+        </script>
+    </head>
+    <body style=" display:flex;justify-content:center;align-items:center;gap:20px ;background-color: #f0f0f0;color: #333333">
+        <input id="title" type="text" placeholder="Title" />
+        <input id="description" type="text" placeholder="Description" />
+        <button onclick="orgCreate()">Create</button>
+        <button onlcik="addMember()">Add Member</button>
+    </body>
+</html>

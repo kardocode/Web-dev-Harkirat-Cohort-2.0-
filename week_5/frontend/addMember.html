@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+            async function addMember(){
+                const memberName = document.getElementById('memberName').value;
+                const response = await axios.post("http://localhost:3000/add-member-to-organization",{
+                    memberUsername:memberName
+                },{
+                    headers:{
+                        token:localStorage.getItem('token'),
+                    }  
+                })
+            }
+        </script>
+    </head>
+    <body style=" display:flex;justify-content:center;align-items:center;gap:20px ;background-color: #f0f0f0;color: #333333">
+        <input id="memberName" type="text" placeholder="MEMBER NAME" />
+        <button onlcik="addMember()">Add Member</button>
+    </body>
+</html>

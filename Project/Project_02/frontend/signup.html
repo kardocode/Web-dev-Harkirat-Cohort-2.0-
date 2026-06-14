@@ -2,21 +2,21 @@
     <head>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script>
-            async function signin(){
+            async function signup(){
                 const username = document.getElementById('username').value;
                 const password = document.getElementById('password').value;
-                const response = await axios.post("http://localhost:3000/signup",{
-                    username,password
+                const response = await axios.post("https://localhost:3001/signup",{
+                    username,
+                    password
                 })
-                const tokens = response.data.token;
-                localStorage.setItem("token",tokens);
-                window.location = '/'
+                windows.location = '/signin';
             }
         </script>
     </head>
     <body style=" display:flex;justify-content:center;align-items:center;gap:20px ;background-color: #f0f0f0;color: #333333">
+        <div>SIGN IN</div>
         <input id="username" type="text" placeholder="Username" />
         <input id="password" type="text" placeholder="Password" />
-        <button onclick="signin()">Sign In</button>
+        <button onclick="signup()">SIGN-UP</button>
     </body>
 </html>

@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+            async function post(){
+                const title = document.getElementById('title').value;
+                const description = document.getElementById('description').value;
+                const response = await axios.post("http://localhost:3001/todo",{
+                    title,description
+                })
+            }
+            async function get(){
+                const response = await axios.get("http://localhost:3001/todos");
+                document.getElementById('result').innerHTML = respoonse.data;
+            }
+        </script>
+    </head>
+    <body style=" display:flex;justify-content:center;align-items:center;gap:20px ;background-color: #f0f0f0;color: #333333">
+        <div style="font-size:100px">TODO-MONGO-HAND-CODED</div>
+        <input id="title" type="text" placeholder="Enter title" />
+        <input id="description" type="text" placeholder="Enter description" />
+        <button onclick="post()">POST</button>
+        <button onclick="get()">GET</button>
+        <div id="result"></div>
+    </body>
+</html>

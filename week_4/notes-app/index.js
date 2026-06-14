@@ -65,16 +65,16 @@ app.get('/notes',authmiddleware,(req,res)=>{
     })
 })
 
-app.get("/",(req,res)=>{
-    res.sendFile("D:/webdev/week_4/notes-app/index.html")
-})
+// app.get("/",(req,res)=>{
+//     res.sendFile("D:/webdev/week_4/notes-app/index.html")
+// })
 
-app.get("/signup",(req,res)=>{
-    res.sendFile("D:/webdev/week_4/notes-app/signup.html")
-})
-app.get("/signin",(req,res)=>{
-    res.sendFile("D:/webdev/week_4/notes-app/signin.html")
-})
+// app.get("/signup",(req,res)=>{
+//     res.sendFile("D:/webdev/week_4/notes-app/signup.html")
+// })
+// app.get("/signin",(req,res)=>{
+//     res.sendFile("D:/webdev/week_4/notes-app/signin.html")
+// })
 
 app.listen(port,()=>{
     console.log(`${port} -> PORT`)
