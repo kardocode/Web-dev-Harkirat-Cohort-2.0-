@@ -6,3 +6,4 @@ node_modules/
 .express
 LICENSE
 .env
+dist/
