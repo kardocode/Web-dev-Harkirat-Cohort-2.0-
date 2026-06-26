@@ -6,6 +6,6 @@ function identity<MyType>(arg: MyType):MyType{
 let output1 = identity<string>("Subscribe") 
 let output2 = identity<number>(100); 
 
-function getFirstElement<T>(arr: Y[]):MyType{
-    return arg;
+function getFirstElement<T>(arr: T[]):T[]{
+    return arr;
 }
